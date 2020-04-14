@@ -15,7 +15,8 @@ chmod a+x eye.sh
 crontab -e
 * * * * * /eye绝对路径/eye.sh
 ```
-## 安装mailx
+
+# 安装mailx
 <a href="https://blog.shuaiguoer.com/mailx.html" target="_blank">mailx的安装与使用</a>
 
 # eye更新记录
