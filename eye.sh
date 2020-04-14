@@ -3,11 +3,13 @@
 #description: eye_server
 #AUTHOR Shuai
 #MAIL ls12345666@qq.com
-#VERSION 1
+#VERSION 2
 #################################  希望此脚本邮件永不发送  ###################################
-VERSION=eye_1.sh
-LATEST_version=`curl http://pan.shuaiguoer.com/code/shell/eye/ 2> /dev/null  | grep "<span>"| awk -F">" '{print $2}' | awk -F"<" '{print $1}' | awk 'END{print}'`
-LATEST_href="http://pan.shuaiguoer.com/code/shell/eye/$LATEST_version"
+VERSION=eye_2.sh
+LATEST_version=`curl https://pan.shuaiguoer.com/code/shell/eye/ 2> /dev/null  | grep "<span>"| awk -F">" '{print $2}' | awk -F"<" '{print $1}' | awk 'END{print}'`
+LATEST_href="https://pan.shuaiguoer.com/code/shell/eye/$LATEST_version"
+echo $LATEST_version
+echo $LATEST_href
 TIME=`date +"%Y-%m-%d %H:%M:%S"`
 DISK_USE=`df -Th | grep '/$' | awk '{print $(NF-1)}' | awk -F% '{print $1}'`
 MEM_USE=`free -m | grep Mem | awk '{print $3}'`
@@ -138,10 +140,15 @@ done
 eye_update(){
 	if [[ $VERSION < $LATEST_version ]];	then
 		read -p "`color 1 34 确认更新eye为最新版本？`(`color 1 32 y`/`color 1 31 n`)" OR
+		if command -v wget &> /dev/null; then
+			:
+		else
+			yum -y install wget
+		fi
 		if [ $OR == y ];	then
 			color "" 1 正在为您更新，请稍等...
-	                wget -O eye.sh $LATEST_href
-			wget -qO eye_version.log http://pan.shuaiguoer.com/code/shell/log/eye_version.log
+	                wget -O eye.sh $LATEST_href --no-check-certificate
+			wget -qO eye_version.log https://pan.shuaiguoer.com/code/shell/log/eye_version.log --no-check-certificate
 			color 1 32 更新成功！
 			\cp $BIN_FOLDER/eye.sh /etc/init.d/eye
 		fi
