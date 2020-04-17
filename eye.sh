@@ -8,8 +8,6 @@
 VERSION=eye_2.sh
 LATEST_version=`curl https://pan.shuaiguoer.com/code/shell/eye/ 2> /dev/null  | grep "<span>"| awk -F">" '{print $2}' | awk -F"<" '{print $1}' | awk 'END{print}'`
 LATEST_href="https://pan.shuaiguoer.com/code/shell/eye/$LATEST_version"
-echo $LATEST_version
-echo $LATEST_href
 TIME=`date +"%Y-%m-%d %H:%M:%S"`
 DISK_USE=`df -Th | grep '/$' | awk '{print $(NF-1)}' | awk -F% '{print $1}'`
 MEM_USE=`free -m | grep Mem | awk '{print $3}'`
